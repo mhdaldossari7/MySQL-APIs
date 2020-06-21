@@ -31,7 +31,7 @@ func main() {
 	// attach handler to server
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/userID", sendUserID).Methods(http.MethodPost)
+	router.HandleFunc("/userID", storeUserID).Methods(http.MethodPost)
 	router.HandleFunc("/userID", deleteUserID).Methods(http.MethodDelete)
 	router.HandleFunc("/userID/{user_id}", sendOneUserID).Methods(http.MethodPost)
 	router.HandleFunc("/userID/{user_id}", removeOneUserID).Methods(http.MethodDelete)
@@ -56,7 +56,7 @@ func main() {
 // 	}
 // }
 
-func sendUserID(w http.ResponseWriter, r *http.Request) {
+func storeUserID(w http.ResponseWriter, r *http.Request) {
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		resp := newBadRequestResp("invalid request body")
