@@ -38,7 +38,7 @@ func successUsersResp(data interface{}) resp {
 func newBadRequestResp(msg string) resp {
 	return resp{
 		Success: false,
-		Err:     "ERR_INTRENAL_ERROR",
+		Err:     "ERR_BAD_REQUEST",
 		Message: msg,
 	}
 }
