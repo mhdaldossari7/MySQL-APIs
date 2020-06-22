@@ -20,6 +20,13 @@ func (r resp) JSON() []byte {
 	return b
 }
 
+func newSuccessRespIfUserIDDoesntExists(msg string) resp {
+	return resp{
+		Success: true,
+		Message: msg,
+	}
+}
+
 func newSuccessResp(data interface{}, msg string) resp {
 	return resp{
 		Success: true,

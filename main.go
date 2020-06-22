@@ -36,6 +36,7 @@ func main() {
 	router.HandleFunc("/userID/{user_id}", sendOneUserID).Methods(http.MethodPost)
 	router.HandleFunc("/userID/{user_id}", removeOneUserID).Methods(http.MethodDelete)
 	router.HandleFunc("/userID/{user_id}", getUserID).Methods(http.MethodGet)
+	router.HandleFunc("/userID", checkIfUserIDExists).Methods(http.MethodGet)
 	router.Path("/get_user").Queries("limit", "{limit}").HandlerFunc(getAllID).Name("getAllID")
 	//http.HandleFunc("/userID", handleUserID)
 	// run server
@@ -162,7 +163,34 @@ func getUserID(w http.ResponseWriter, r *http.Request) {
 	if getUserIDFromDB > 0 {
 		writeResp(w, http.StatusOK, newSuccessResp(getUserIDFromDB, "Exists in DB"))
 	} else {
-		writeResp(w, http.StatusOK, newSuccessResp(getUserIDFromDB, "Doesn't Exists in DB"))
+		writeResp(w, http.StatusOK, newSuccessRespIfUserIDDoesntExists("Doesn't Exists in DB"))
+	}
+}
+
+func checkIfUserIDExists(w http.ResponseWriter, r *http.Request) {
+	b, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		resp := newBadRequestResp("invalid request body")
+		writeResp(w, http.StatusBadRequest, resp)
+		return
+	}
+	var userID postUserID
+	err = json.Unmarshal(b, &userID)
+	if err != nil {
+		resp := newBadRequestResp(err.Error())
+		writeResp(w, http.StatusBadRequest, resp)
+		return
+	}
+	getUserIDFromDB, err := dbClient.getUserIDIfExists(userID)
+	if err != nil {
+		resp := newErrInternalResp(err.Error())
+		writeResp(w, http.StatusInternalServerError, resp)
+		return
+	}
+	if getUserIDFromDB > 0 {
+		writeResp(w, http.StatusOK, newSuccessResp(getUserIDFromDB, "Exists in DB"))
+	} else {
+		writeResp(w, http.StatusOK, newSuccessRespIfUserIDDoesntExists("Doesn't Exists in DB"))
 	}
 }
 
