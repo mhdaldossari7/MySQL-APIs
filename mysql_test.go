@@ -11,9 +11,9 @@ func TestStoreUserID(t *testing.T) {
 	client, err := newSQLClient(sqlConfigs{
 		Host:                 "localhost",
 		Port:                 3306,
-		User:                 "root",
-		Password:             "root",
-		DBName:               "post_notifications",
+		User:                 "",
+		Password:             "",
+		DBName:               "",
 		DialTimeoutInSeconds: 5,
 	})
 	if err != nil {
@@ -54,9 +54,9 @@ func TestDeleteUserID(t *testing.T) {
 	client, err := newSQLClient(sqlConfigs{
 		Host:                 "localhost",
 		Port:                 3306,
-		User:                 "root",
-		Password:             "root",
-		DBName:               "post_notifications",
+		User:                 "",
+		Password:             "",
+		DBName:               "",
 		DialTimeoutInSeconds: 5,
 	})
 	if err != nil {
@@ -89,9 +89,9 @@ func TestGetUserIfExists(t *testing.T) {
 	client, err := newSQLClient(sqlConfigs{
 		Host:                 "localhost",
 		Port:                 3306,
-		User:                 "root",
-		Password:             "root",
-		DBName:               "post_notifications",
+		User:                 "",
+		Password:             "",
+		DBName:               "",
 		DialTimeoutInSeconds: 5,
 	})
 	if err != nil {
@@ -124,9 +124,9 @@ func TestGetLimitedUserID(t *testing.T) {
 	client, err := newSQLClient(sqlConfigs{
 		Host:                 "localhost",
 		Port:                 3306,
-		User:                 "root",
-		Password:             "root",
-		DBName:               "post_notifications",
+		User:                 "",
+		Password:             "",
+		DBName:               "",
 		DialTimeoutInSeconds: 5,
 	})
 	if err != nil {

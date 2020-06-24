@@ -19,9 +19,9 @@ func main() {
 	client, err := newSQLClient(sqlConfigs{
 		Host:                 "localhost",
 		Port:                 3306,
-		User:                 "root",
-		Password:             "root",
-		DBName:               "post_notifications",
+		User:                 "",
+		Password:             "",
+		DBName:               "",
 		DialTimeoutInSeconds: 5,
 	})
 	if err != nil {
@@ -31,13 +31,13 @@ func main() {
 	// attach handler to server
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/userID", storeUserID).Methods(http.MethodPost)
-	router.HandleFunc("/userID", deleteUserID).Methods(http.MethodDelete)
-	router.HandleFunc("/userID/{user_id}", sendOneUserID).Methods(http.MethodPost)
-	router.HandleFunc("/userID/{user_id}", removeOneUserID).Methods(http.MethodDelete)
-	router.HandleFunc("/userID/{user_id}", getUserID).Methods(http.MethodGet)
-	router.HandleFunc("/userID", checkIfUserIDExists).Methods(http.MethodGet)
-	router.Path("/get_user").Queries("limit", "{limit}").HandlerFunc(getAllID).Name("getAllID")
+	router.HandleFunc("/send_user_id", storeUserID).Methods(http.MethodPost)
+	router.HandleFunc("/remove_user_id", deleteUserID).Methods(http.MethodPost)
+	router.HandleFunc("/send_user_id/{user_id}", sendOneUserID).Methods(http.MethodPost)
+	router.HandleFunc("/remove_user_id/{user_id}", removeOneUserID).Methods(http.MethodPost)
+	router.HandleFunc("/check_user_id/{user_id}", getUserID).Methods(http.MethodGet)
+	router.HandleFunc("/check_user_id", checkIfUserIDExists).Methods(http.MethodGet)
+	router.Path("/get_users").Queries("limit", "{limit}").HandlerFunc(getAllID).Name("getAllID")
 	//http.HandleFunc("/userID", handleUserID)
 	// run server
 	log.Printf("server is listening on %v", addr)
