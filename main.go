@@ -31,8 +31,6 @@ func main() {
 	// attach handler to server
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/users", storeUserID).Methods(http.MethodPost)
-	router.HandleFunc("/users", deleteUserID).Methods(http.MethodDelete)
 	router.HandleFunc("/users/{user_id}", sendOneUserID).Methods(http.MethodPost)
 	router.HandleFunc("/users/{user_id}", removeOneUserID).Methods(http.MethodDelete)
 	router.HandleFunc("/users/{user_id}", getUserID).Methods(http.MethodGet)
