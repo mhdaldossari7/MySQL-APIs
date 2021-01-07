@@ -31,13 +31,12 @@ func main() {
 	// attach handler to server
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/send_user_id", storeUserID).Methods(http.MethodPost)
-	router.HandleFunc("/remove_user_id", deleteUserID).Methods(http.MethodPost)
-	router.HandleFunc("/send_user_id/{user_id}", sendOneUserID).Methods(http.MethodPost)
-	router.HandleFunc("/remove_user_id/{user_id}", removeOneUserID).Methods(http.MethodPost)
-	router.HandleFunc("/check_user_id/{user_id}", getUserID).Methods(http.MethodGet)
-	router.HandleFunc("/check_user_id", checkIfUserIDExists).Methods(http.MethodGet)
-	router.Path("/get_users").Queries("limit", "{limit}").HandlerFunc(getAllID).Name("getAllID")
+	router.HandleFunc("/users", storeUserID).Methods(http.MethodPost)
+	router.HandleFunc("/users", deleteUserID).Methods(http.MethodDelete)
+	router.HandleFunc("/users/{user_id}", sendOneUserID).Methods(http.MethodPost)
+	router.HandleFunc("/users/{user_id}", removeOneUserID).Methods(http.MethodDelete)
+	router.HandleFunc("/users/{user_id}", getUserID).Methods(http.MethodGet)
+	router.Path("/users").Queries("limit", "{limit}").HandlerFunc(getAllID).Name("getAllID")
 	//http.HandleFunc("/userID", handleUserID)
 	// run server
 	log.Printf("server is listening on %v", addr)
@@ -161,7 +160,7 @@ func getUserID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if getUserIDFromDB > 0 {
-		writeResp(w, http.StatusOK, newSuccessResp(getUserIDFromDB, "Exists in DB"))
+		writeResp(w, http.StatusOK, userIDExistInDB("Exists in DB"))
 	} else {
 		writeResp(w, http.StatusOK, newSuccessRespIfUserIDDoesntExists("Doesn't Exists in DB"))
 	}

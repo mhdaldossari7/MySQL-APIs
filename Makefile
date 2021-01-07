@@ -1,2 +1,2 @@
 run:
-	go run main.go sql.go data.go
+	sudo go run main.go sql.go data.go

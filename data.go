@@ -35,6 +35,13 @@ func newSuccessResp(data interface{}, msg string) resp {
 	}
 }
 
+func userIDExistInDB(msg string) resp {
+	return resp{
+		Success: true,
+		Message: msg,
+	}
+}
+
 func successUsersResp(data interface{}) resp {
 	return resp{
 		Success: true,
