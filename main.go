@@ -193,6 +193,11 @@ func checkIfUserIDExists(w http.ResponseWriter, r *http.Request) {
 
 func getAllID(w http.ResponseWriter, r *http.Request) {
 	limit := r.URL.Query().Get("limit")
+	if !isNumeric(limit) {
+		resp := newBadRequestResp("You must pass integers")
+		writeResp(w, http.StatusBadRequest, resp)
+		return
+	}
 	limit2, _ := strconv.Atoi(limit)
 	ids, err := dbClient.getAllUsersID(limit2)
 	if err != nil {

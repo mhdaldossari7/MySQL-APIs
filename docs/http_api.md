@@ -13,7 +13,7 @@ This function stores the user id in the database. It doesn't require any authori
 {
     "success": true,
     "data": {
-        "user_id": {user_id}
+        "user_id": 1
     },
     "message": "Added"
 }
@@ -40,7 +40,7 @@ If the client receives this error, it means the provided credentials for MySQL a
     "message": "You must pass integers"
 }
 ```
-If the client receives this error, It means the client passed wrong data type. The user id must be integer.
+If the client receives this error, It means the user id is not integer. The user id must be integer.
 
 [Back to Top](#http-api)
 
@@ -59,7 +59,7 @@ This function deleted the user id from the database. It doesn't require any auth
 {
     "success": true,
     "data": {
-        "user_id": {user_id}
+        "user_id": 1
     },
     "message": "Deleted"
 }
@@ -86,7 +86,7 @@ If the client receives this error, it means the provided credentials for MySQL a
     "message": "You must pass integers"
 }
 ```
-If the client receives this error, It means the client passed wrong data type. The user id must be integer.
+If the client receives this error, It means the user id is not integer. The user id must be integer.
 
 [Back to Top](#http-api)
 
@@ -141,7 +141,7 @@ If the client receives this error, it means the provided credentials for MySQL a
     "message": "You must pass integers"
 }
 ```
-If the client receives this error, It means the client passed wrong data type. The user id must be integer.
+If the client receives this error, It means the user id is not integer. The user id must be integer.
 
 [Back to Top](#http-api)
 
@@ -154,17 +154,24 @@ GET : `/users?limit={limit}`
 
 *`limit` : Number of data to be fetched from database.*
 
-This function fetches all user ids from database. It doesn't require any authorization in the header.
+This function fetches user ids from database based on limit value, limit value must be integer. It doesn't require any authorization in the header.
 
 
 **Success Response:**
 ```json
 {
     "success": true,
-    "data": {
-        "user_id": {user_id}
-    },
-    "message": "Deleted"
+    "data": [
+        {
+            "user_id": 1
+        },
+        {
+            "user_id": 2
+        },
+        {
+            "user_id": 3
+        }
+    ]
 }
 ```
 
@@ -189,6 +196,6 @@ If the client receives this error, it means the provided credentials for MySQL a
     "message": "You must pass integers"
 }
 ```
-If the client receives this error, It means the client passed wrong data type. The user id must be integer.
+If the client receives this error, It means the limit value is not integer. The user id must be integer.
 
 [Back to Top](#http-api)
